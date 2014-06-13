@@ -105,7 +105,8 @@ function! s:ToHexModle()
   endif
 endfunction
 
-map <silent> <leader>h :call s:ToHexModle()<cr>
+command! -nargs=0 ToHex call s:ToHexModle()
+map <silent> <leader>h :ToHex<cr>
 
 autocmd BufNewFile,BufRead *SCons* set filetype=python
 autocmd BufNewFile,BufRead *scons* set filetype=python
