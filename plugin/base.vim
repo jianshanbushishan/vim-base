@@ -123,6 +123,7 @@ noremap <silent> -   :split<CR>
 noremap <silent> <Delete>   :bd<CR>
 noremap <silent> <Left>     :bp<CR>
 noremap <silent> <Right>    :bn<CR>
+noremap <F3> :%s/ \+$//<CR>
 
 command! -nargs=* -complete=help Help vertical belowright help <args>
 
