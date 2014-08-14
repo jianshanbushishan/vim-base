@@ -1,24 +1,5 @@
 syntax on      	        "open syntax highlight
 set fdm=syntax          "set fold method to syntax
-if has("win32")
-    behave mswin
-    set guifont=Source_Code_Pro_Light:h13:cANSI
-    "set fileencoding=chinese
-    "set linespace=-1
-    autocmd! InsertLeave * set imdisable
-    autocmd! InsertEnter * set noimdisable
-else
-    set fileencoding=utf-8
-    set guifont=YaHei\ Mono\ 10
-    set guifontwide=YaHei\ Mono\ 10
-    cd ~
-endif
-
-set encoding=utf-8
-set fileencodings=utf-8,chinese,utf-16,latin1
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
-language messages zh_CN.utf-8
 
 if has("gui_running")
     set guioptions-=r
@@ -27,7 +8,26 @@ if has("gui_running")
     set guioptions-=L
     set lines=36
     set columns=108
+    if has("win32")
+        behave mswin
+        set guifont=Source_Code_Pro_Light:h13:cANSI
+        "set fileencoding=chinese
+        "set linespace=-1
+        autocmd! InsertLeave * set imdisable
+        autocmd! InsertEnter * set noimdisable
+    else
+        set fileencoding=utf-8
+        set guifont=Sauce\ Code\ Pro\ h14
+        set guifontwide=YaHei\ Mono\ 10
+        cd ~
+    endif
 endif
+
+set encoding=utf-8
+set fileencodings=utf-8,chinese,utf-16,latin1
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+language messages zh_CN.utf-8
 
 filetype indent on
 filetype plugin on
@@ -123,7 +123,7 @@ noremap <silent> -   :split<CR>
 noremap <silent> <Delete>   :bd<CR>
 noremap <silent> <Left>     :bp<CR>
 noremap <silent> <Right>    :bn<CR>
-noremap <F3> :%s/ \+$//<CR>
+noremap <F3> :%s/\s\+$//<CR>
 
 command! -nargs=* -complete=help Help vertical belowright help <args>
 
