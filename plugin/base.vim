@@ -118,8 +118,9 @@ inoremap { {}<LEFT>
 inoremap " ""<LEFT>
 inoremap ' ''<LEFT>
 
-" noremap <silent> |   :vsplit<CR>
+noremap <silent> \|  :vsplit<CR>
 noremap <silent> -   :split<CR>
+noremap <silent> <C-z>   :close<CR>
 noremap <silent> <Delete>   :bd<CR>
 noremap <silent> <Left>     :bp<CR>
 noremap <silent> <Right>    :bn<CR>
