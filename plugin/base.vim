@@ -8,6 +8,7 @@ if has("gui_running")
     set guioptions-=L
     set lines=36
     set columns=108
+    set noimdisable
     if has("win32")
         behave mswin
         set guifont=Source_Code_Pro_Light:h13:cANSI
@@ -17,8 +18,10 @@ if has("gui_running")
         autocmd! InsertEnter * set noimdisable
     else
         set fileencoding=utf-8
-        set guifont=Sauce\ Code\ Pro\ h14
-        set guifontwide=YaHei\ Mono\ 10
+        set guifont=Sauce\ Code\ Powerline\ Light:h16
+        set guifontwide=YaHei\ Mono:h14
+        autocmd! InsertLeave * set imdisable|set iminsert=0
+        autocmd! InsertEnter * set noimdisable|set iminsert=0
         cd ~
     endif
 endif
