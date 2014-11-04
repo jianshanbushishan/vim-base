@@ -17,8 +17,8 @@ if has("gui_running")
         autocmd! InsertEnter * set noimdisable
     else
         set fileencoding=utf-8
-        set guifont=Sauce\ Code\ Pro\ h14
-        set guifontwide=YaHei\ Mono\ 10
+        set guifont=Sauce\ Code\ Powerline\ Light:h14
+        set guifontwide=YaHei\ Mono:h14
         cd ~
     endif
 endif
