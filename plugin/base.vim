@@ -18,7 +18,7 @@ if has("gui_running")
     else
         set fileencoding=utf-8
         set guifont=Sauce\ Code\ Powerline\ Light:h14
-        set guifontwide=YaHei\ Mono:h14
+        " set guifontwide=YaHei\ Mono:h14
         cd ~
     endif
 endif
