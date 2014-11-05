@@ -17,7 +17,7 @@ if has("gui_running")
         autocmd! InsertEnter * set noimdisable
     else
         set fileencoding=utf-8
-        set guifont=Sauce\ Code\ Powerline\ Light:h14
+        set guifont=Sauce\ Code\ Powerline\ Light:h16
         " set guifontwide=YaHei\ Mono:h14
         cd ~
     endif
@@ -110,7 +110,7 @@ map <silent> <leader>h :ToHex<cr>
 
 autocmd BufNewFile,BufRead *SCons* set filetype=python
 autocmd BufNewFile,BufRead *scons* set filetype=python
-autocmd BufReadPost * execute "cd ".expand("%:p:h")
+autocmd BufReadPost * execute "cd ".substitute(expand("%:p:h"), " ", "\\\\ ", "g")
 
 " 插入匹配括号
 inoremap ( ()<LEFT>
