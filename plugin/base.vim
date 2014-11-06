@@ -77,11 +77,16 @@ nmap <silent> <leader><cr> :noh<cr>
 "delete all blanks at the tail of a line
 func! s:DeleteTrailingWS()
   exe "normal mz"
+  let temp = @/
   %s/\s\+$//ge
   nohl
+  let @/ = temp
   exe "normal `z"
+  w
 endfunc
-nmap <silent> <leader>ds :call s:DeleteTrailingWS()<cr>:w<cr>
+
+command! -nargs=0 CleanTrailing call s:DeleteTrailingWS()
+map <silent> <leader>dd :CleanTrailing<cr>
 
 map <C-Tab> :bn<cr>
 
@@ -125,7 +130,7 @@ noremap <silent> <C-z>   :close<CR>
 noremap <silent> <Delete>   :bd<CR>
 noremap <silent> <Left>     :bp<CR>
 noremap <silent> <Right>    :bn<CR>
-noremap <M-D> :%s/\s\+$//<CR>
+
 noremap <F3> :Unite file source<CR>
 
 command! -nargs=* -complete=help Help vertical belowright help <args>
