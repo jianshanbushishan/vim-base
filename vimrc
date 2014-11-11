@@ -12,6 +12,7 @@ if has("win32")
 else
     let s:vimRunPath = "~/.vim/bundle"
 endif
+
 " set the runtime path to include Vundle and initialize
 exec "set rtp+=".s:vimRunPath."/Vundle.vim"
 call vundle#begin(s:vimRunPath)
@@ -26,10 +27,12 @@ endif
 " 将一些通用的配置从vimrc中抽取出来放在了这里,方便修改
 Plugin 'jianshanbushishan/vim-base'
 
-" textmate下的配色方案
-Plugin 'tomasr/molokai'
-Plugin 'altercation/vim-colors-solarized'
+if has("gui_running")
+    " textmate下的配色方案
+    Plugin 'tomasr/molokai'
+    Plugin 'altercation/vim-colors-solarized'
 " 颜色方案的设置需要放到vundle加载后,否则将不会生效
+endif
 
 " tagbar用于显示代码的outline显示,比如列出函数,宏等
 Plugin 'majutsushi/tagbar' "{{{
@@ -105,22 +108,18 @@ Plugin 'terryma/vim-expand-region'
 " 仿照snipmate的插件,支持自定义代码模版,从而快速插入整段代码,并按顺序修改模版
 " 整体功能较强大, 暂时有很多功能还用不到
 Plugin 'msanders/snipmate.vim'
-" Plugin 'honza/vim-snippets' "{{{
 " let g:UltiSnipsExpandTrigger="<tab>"
 " let g:UltiSnipsJumpForwardTrigger="<tab>"
 " let g:UltiSnipsJumpBackwardTrigger="<c-b>"
 "}}}
 
-"if has("win32")
-    " 如果不考虑c++的智能补全,常用的补全使用这个插件足够
-    " windows下使用YouCompleteMe安装略麻烦
+" 如果不考虑c++的智能补全,常用的补全使用这个插件足够
+" windows下使用YouCompleteMe安装略麻烦
 Plugin 'exvim/ex-autocomplpop'
 let g:acp_completeoptPreview = 0
-"else
-    " 代码自动补全插件,c类的预言使用clang进行编译进行代码跳转和补全的支持
-    " 自动补全的准确率非常高
-    " Plugin 'Valloric/YouCompleteMe'
-"endif
+" 代码自动补全插件,c类的预言使用clang进行编译进行代码跳转和补全的支持
+" 自动补全的准确率非常高
+" Plugin 'Valloric/YouCompleteMe'
 
 " 快速搜索插件,支持搜索打开的buffer,目录下的所有文件,以及menu等各种数据
 " 可以考虑自己使用qt写个类似插件,实现sublime中c-a-p那个框的效果
@@ -135,5 +134,10 @@ map ? :PYSearch<CR>
 map <A-n> :PYNext<CR>
 call vundle#end()            " required
 
-colorscheme molokai
+if has("gui_running")
+    colorscheme molokai
+else
+    colorscheme darkblue
+endif
+
 set background=dark
