@@ -124,6 +124,9 @@ let g:acp_completeoptPreview = 0
 " 快速搜索插件,支持搜索打开的buffer,目录下的所有文件,以及menu等各种数据
 " 可以考虑自己使用qt写个类似插件,实现sublime中c-a-p那个框的效果
 Plugin 'Shougo/unite.vim'
+let g:unite_source_history_yank_enable = 1
+
+Plugin 'Shougo/vimproc.vim'
 
 " qt quick的qml脚本的配置插件,支持语法高亮,indent配置
 Plugin 'peterhoeg/vim-qml'

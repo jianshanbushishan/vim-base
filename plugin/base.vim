@@ -132,7 +132,7 @@ noremap <silent> <Delete>   :bd<CR>
 noremap <silent> <Left>     :bp<CR>
 noremap <silent> <Right>    :bn<CR>
 
-noremap <F3> :Unite file source<CR>
+noremap <F3> :Unite -no-split file source<CR>
 
 command! -nargs=* -complete=help Help vertical belowright help <args>
 
