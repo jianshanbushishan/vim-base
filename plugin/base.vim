@@ -132,7 +132,10 @@ noremap <silent> <Delete>   :bd<CR>
 noremap <silent> <Left>     :bp<CR>
 noremap <silent> <Right>    :bn<CR>
 
-noremap <F3> :Unite file source<CR>
+noremap <S-F3> :Unite source<CR>
+noremap <C-F3> :Unite buffer<CR>
+noremap <A-F3> :Unite bookmark<CR>
+noremap <F3> :Unite file<CR>
 
 command! -nargs=* -complete=help Help vertical belowright help <args>
 
