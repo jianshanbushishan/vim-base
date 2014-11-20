@@ -132,10 +132,10 @@ noremap <silent> <Delete>   :bd<CR>
 noremap <silent> <Left>     :bp<CR>
 noremap <silent> <Right>    :bn<CR>
 
-noremap <S-F3> :Unite source<CR>
-noremap <C-F3> :Unite buffer<CR>
-noremap <A-F3> :Unite bookmark<CR>
-noremap <F3> :Unite file<CR>
+noremap <S-F3> :Unite source -start-insert<CR>
+noremap <C-F3> :Unite buffer -start-insert<CR>
+noremap <A-F3> :Unite bookmark -start-insert<CR>
+noremap <F3> :Unite file_rec/async -start-insert<CR>
 
 command! -nargs=* -complete=help Help vertical belowright help <args>
 
