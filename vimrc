@@ -11,6 +11,7 @@ if has("win32")
     let s:vimRunPath = simplify($VIMRUNTIME."\\..\\vimfiles\\bundle")
 else
     let s:vimRunPath = "~/.vim/bundle"
+    set shell=bash
 endif
 
 " set the runtime path to include Vundle and initialize
@@ -223,7 +224,7 @@ call neobundle#end()
 filetype plugin indent on
 
 if has("gui_running")
-    colorscheme molokai
+    colorscheme solarized
 else
     colorscheme darkblue
 endif
