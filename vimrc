@@ -27,7 +27,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 " 协助开发的一些配置,以方便编译调试运行c lua python等代码
 NeoBundle 'jianshanbushishan/vim-dev-mate' "{{{
 if has('win32') || has('win64')
-    let g:console_app = "e:\\software\\console2\\Console.exe"
+    let g:console_app = "f:\\software\\console2\\Console.exe"
 endif
 "}}}
 
@@ -182,13 +182,14 @@ endif
 " 可以考虑自己使用qt写个类似插件,实现sublime中c-a-p那个框的效果
 NeoBundle 'Shougo/vimproc.vim', {
 \ 'build' : {
-\     'windows' : 'tools\\update-dll-mingw',
+\     'windows' : 'tools\\update-dll-mingw.bat 32',
 \     'mac' : 'make',
 \     'linux' : 'make',
 \    },
 \ }
 NeoBundle 'Shougo/unite.vim' "{{{
 let g:unite_source_history_yank_enable = 1
+let g:unite_source_rec_async_command = 'ag --follow --nocolor --nogroup --hidden -g ""'
 "}}}
 
 
@@ -208,10 +209,11 @@ map <A-n> :PYNext<CR>
 
 " 用来做各种编程语言的语法检查
 NeoBundle 'scrooloose/syntastic' "{{{
+" let g:syntastic_check_on_open = 0
+" let g:syntastic_check_on_wq = 0
+" let g:syntastic_enable_signs = 0
 let g:syntastic_python_checkers = ['pylint']
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_enable_signs = 0
+let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_mode_map = { 'mode': 'passive',
                            \ 'active_filetypes': ['ruby', 'lua'],
                            \ 'passive_filetypes': [] }
