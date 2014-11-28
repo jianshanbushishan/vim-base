@@ -179,7 +179,7 @@ endif
 
 
 " 快速搜索插件,支持搜索打开的buffer,目录下的所有文件,以及menu等各种数据
-" 可以考虑自己使用qt写个类似插件,实现sublime中c-a-p那个框的效果
+" 有些调用如查找字符串、遍历目录等操作耗时较久需要异步调用,须安装vimproc
 NeoBundle 'Shougo/vimproc.vim', {
 \ 'build' : {
 \     'windows' : 'tools\\update-dll-mingw.bat 32',
@@ -189,6 +189,9 @@ NeoBundle 'Shougo/vimproc.vim', {
 \ }
 NeoBundle 'Shougo/unite.vim' "{{{
 let g:unite_source_history_yank_enable = 1
+"widows下如果不设置下面项的话，file_rec/async将无法使用, ag安装：
+"windows下http://blog.kowalczyk.info/software/the-silver-searcher-for-windows.html
+"mac下brew install the_silver_searcher, linux下yum install the_silver_searcher
 let g:unite_source_rec_async_command = 'ag --follow --nocolor --nogroup --hidden -g ""'
 "}}}
 
@@ -212,12 +215,21 @@ NeoBundle 'scrooloose/syntastic' "{{{
 " let g:syntastic_check_on_open = 0
 " let g:syntastic_check_on_wq = 0
 " let g:syntastic_enable_signs = 0
+"windows下使用pylint时需要先设置下环境变量PYLINTRC指向使用pylintrc文件
+"pylintrc需要自定义配置下自己需要显示的警告,默认有非常多不需要的报错
 let g:syntastic_python_checkers = ['pylint']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_mode_map = { 'mode': 'passive',
                            \ 'active_filetypes': ['ruby', 'lua'],
                            \ 'passive_filetypes': [] }
-map <F2> :SyntasticCheck<CR>
+function! s:syncCheck()
+    :w
+    :SyntasticReset
+    :SyntasticCheck
+    :Errors
+endfunction
+command! -nargs=0 SyncCheck call s:syncCheck()
+map <F2> :SyncCheck<CR>
 map <C-F2> :SyntasticReset<CR>
 "}}}
 
