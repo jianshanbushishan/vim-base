@@ -114,9 +114,20 @@ endfunction
 command! -nargs=0 ToHex call s:ToHexModle()
 map <silent> <leader>h :ToHex<cr>
 
+let s:fixPath = 0
+function! s:FixPath()
+    if s:fixPath == 0
+        let s:fixPath = 1
+    else
+        let s:fixPath = 0
+    endif
+endfunction
+
+command! -nargs=0 FixPath call s:FixPath()
+
 autocmd BufNewFile,BufRead *SCons* set filetype=python
 autocmd BufNewFile,BufRead *scons* set filetype=python
-autocmd BufReadPost * execute "cd ".substitute(expand("%:p:h"), " ", "\\\\ ", "g")
+autocmd BufReadPost * execute "if s:fixPath == 0 | cd ".substitute(expand("%:p:h"), " ", "\\\\ ", "g")." | endif"
 
 " 插入匹配括号
 inoremap ( ()<LEFT>
