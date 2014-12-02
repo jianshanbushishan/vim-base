@@ -150,6 +150,9 @@ function! s:my_cr_function()
   "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
 endfunction
 
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
