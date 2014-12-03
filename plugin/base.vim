@@ -150,3 +150,7 @@ noremap <F3> :Unite file_rec/async -start-insert<CR>
 
 command! -nargs=* -complete=help Help vertical belowright help <args>
 
+if has("mac")
+    nmap <silent> <leader>t :po<cr>
+endif
+
