@@ -157,8 +157,8 @@ function! s:MakeCTags()
     let l += split(glob("**/*.[h|c]pp"))
     let l += split(glob("**/*.cc"))
     call writefile(l, "src.files")
-    call system(g:ctags_prog." -R –c++-kinds=+px –fields=+iaS –extra=+q -L src.files")
-    call system(g:cs_prog." -R -b -i src.files")
+    call system(g:tagbar_ctags_bin." -R –c++-kinds=+px –fields=+iaS –extra=+q -L src.files")
+    call system(&cscopeprg." -R -b -i src.files")
     set tags=tags
     cs add cscope.out
 endfunction

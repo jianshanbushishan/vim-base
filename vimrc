@@ -35,15 +35,6 @@ endif
 
 " 将一些通用的配置从vimrc中抽取出来放在了这里,方便修改
 NeoBundle 'jianshanbushishan/vim-base' "{{{
-if has('win32') || has('win64')
-    let g:cs_prog = "f:\\software\\cscope.exe"
-else
-    if filereadable("/usr/bin/cscope")
-        let g:cs_prog = "/usr/bin/cscope"
-    elseif filereadable("/usr/local/bin/cscope")
-        let g:cs_prog = "/usr/local/bin/cscope"
-    endif
-endif
 " }}}
 
 
@@ -60,12 +51,16 @@ endif
 " tagbar用于显示代码的outline显示,比如列出函数,宏等
 NeoBundle 'majutsushi/tagbar' "{{{
 nmap <silent> <F9> :TagbarToggle<cr>
-let g:tagbar_ctags_bin = expand('$VIMRUNTIME').'\ctags.exe'
-if has("win32")
-    set csprg='cscope.exe'
+if has('win32') || has('win64')
+    let g:tagbar_ctags_bin = expand('$VIMRUNTIME').'\ctags.exe'
+    execute "set csprg=".expand('$VIMRUNTIME').'\cscope.exe'
 else
     let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
-    set csprg='/usr/local/bin/cscope'
+    if filereadable("/usr/bin/cscope")
+        execute "set csprg=/usr/bin/cscope'
+    elseif filereadable("/usr/local/bin/cscope")
+        execute "set csprg=/usr/local/bin/cscope'
+    endif
 endif
 "}}}
 
