@@ -114,17 +114,6 @@ endfunction
 command! -nargs=0 ToHex call s:ToHexModle()
 map <silent> <leader>h :ToHex<cr>
 
-let s:fixPath = 0
-function! s:FixPath()
-    if s:fixPath == 0
-        let s:fixPath = 1
-    else
-        let s:fixPath = 0
-    endif
-endfunction
-
-command! -nargs=0 FixPath call s:FixPath()
-
 autocmd BufNewFile,BufRead *SCons* set filetype=python
 autocmd BufNewFile,BufRead *scons* set filetype=python
 autocmd BufReadPost * execute "if s:fixPath == 0 | cd ".substitute(expand("%:p:h"), " ", "\\\\ ", "g")." | endif"
@@ -153,4 +142,51 @@ command! -nargs=* -complete=help Help vertical belowright help <args>
 if has("mac")
     nmap <silent> <leader>t :po<cr>
 endif
+
+if has("cscope")
+    execute "set cscopeprg=".g:cs_prog
+    set csto=0
+    set cst
+    nmap <leader>cs :cs find s expand("<cword>")<CR>
+    nmap <leader>cc :cs find c expand("<cword>")<CR>
+    nmap <leader>cd :cs find d expand("<cword>")<CR>
+endif
+
+function! s:MakeCTags()
+    let l = split(glob("**/*.[h|c|]"))
+    let l += split(glob("**/*.[h|c]pp"))
+    let l += split(glob("**/*.cc"))
+    call writefile(l, "src.files")
+    call system(g:ctags_prog." -R –c++-kinds=+px –fields=+iaS –extra=+q -L src.files")
+    call system(g:cs_prog." -R -b -i src.files")
+    set tags=tags
+    cs add cscope.out
+endfunction
+
+command! -nargs=0 MakeCTags call s:MakeCTags()
+
+function! s:MakeTags()
+    call system(g:ctags_prog." -R .")
+    set tags=tags
+endfunction
+
+command! -nargs=0 MakeTags call s:MakeTags()
+
+let s:fixPath = 0
+function! s:FixPath()
+    if s:fixPath == 0
+        let s:fixPath = 1
+        if filewritable("tags")
+            set tags=tags
+        endif
+        if filewritable("cscope.out")
+            cs kill cscope.out
+            cs add cscope.out
+        endif
+    else
+        let s:fixPath = 0
+    endif
+endfunction
+
+command! -nargs=0 FixPath call s:FixPath()
 

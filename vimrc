@@ -34,7 +34,17 @@ endif
 
 
 " 将一些通用的配置从vimrc中抽取出来放在了这里,方便修改
-NeoBundle 'jianshanbushishan/vim-base'
+NeoBundle 'jianshanbushishan/vim-base' "{{{
+if has('win32') || has('win64')
+    let g:cs_prog = "f:\\software\\cscope.exe"
+else
+    if filereadable("/usr/bin/cscope")
+        let g:cs_prog = "/usr/bin/cscope"
+    elseif filereadable("/usr/local/bin/cscope")
+        let g:cs_prog = "/usr/local/bin/cscope"
+    endif
+endif
+" }}}
 
 
 
