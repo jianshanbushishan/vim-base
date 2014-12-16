@@ -116,7 +116,7 @@ map <silent> <leader>h :ToHex<cr>
 
 autocmd BufNewFile,BufRead *SCons* set filetype=python
 autocmd BufNewFile,BufRead *scons* set filetype=python
-autocmd BufReadPost * execute "if s:fixPath == 0 | cd ".substitute(expand("%:p:h"), " ", "\\\\ ", "g")." | endif"
+autocmd BufReadPost * execute "if s:fixPath == 0 | cd ".substitute(expand("%:p:h"), " ", "\\\\ ", "g")." |else | cd ".s:FixedPath." | endif"
 
 " 插入匹配括号
 inoremap ( ()<LEFT>
@@ -144,7 +144,7 @@ if has("mac")
 endif
 
 if has("cscope")
-    execute "set cscopeprg=".g:cs_prog
+    execute "set cscopeprg=".&csprg
     set csto=0
     set cst
     nmap <leader>cs :cs find s expand("<cword>")<CR>
@@ -173,9 +173,11 @@ endfunction
 command! -nargs=0 MakeTags call s:MakeTags()
 
 let s:fixPath = 0
+let s:FixedPath = ""
 function! s:FixPath()
     if s:fixPath == 0
         let s:fixPath = 1
+        let s:FixedPath = getcwd()
         if filewritable("tags")
             set tags=tags
         endif
@@ -185,6 +187,7 @@ function! s:FixPath()
         endif
     else
         let s:fixPath = 0
+        let s:FixedPath = ""
     endif
 endfunction
 
