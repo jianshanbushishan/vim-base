@@ -143,16 +143,16 @@ NeoBundle 'Shougo/neocomplete.vim' "{{{
 " Use neocomplete.
 let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
-let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#enable_smart_case = 0
 " 自动选择第一个候选项
 let g:neocomplete#enable_auto_select = 1
 " Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#sources#syntax#min_keyword_length = 4
+let g:neocomplete#enable_fuzzy_completion = 0
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
-  return neocomplete#close_popup() . "\<CR>"
   " For no inserting <CR> key.
-  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+  return pumvisible() ? neocomplete#close_popup() : "\<CR>"
 endfunction
 
 inoremap <expr><C-g>     neocomplete#undo_completion()
@@ -216,6 +216,11 @@ let g:unite_source_history_yank_enable = 1
 "windows下http://blog.kowalczyk.info/software/the-silver-searcher-for-windows.html
 "mac下brew install the_silver_searcher, linux下yum install the_silver_searcher
 let g:unite_source_rec_async_command = 'ag --follow --nocolor --nogroup --hidden -g ""'
+noremap <S-F3> :Unite source -start-insert<CR>
+noremap <C-F3> :Unite buffer -start-insert<CR>
+noremap <A-F3> :Unite bookmark -start-insert<CR>
+noremap <F3> :Unite file_rec/async -start-insert<CR>
+
 "}}}
 
 
