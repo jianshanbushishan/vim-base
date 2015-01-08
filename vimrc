@@ -55,11 +55,15 @@ if has('win32') || has('win64')
     let g:tagbar_ctags_bin = expand('$VIMRUNTIME').'\ctags.exe'
     execute "set csprg=".expand('$VIMRUNTIME').'\cscope.exe'
 else
-    let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
+    if filereadable("/usr/bin/ctags")
+        let g:tagbar_ctags_bin = '/usr/bin/ctags'
+    elseif filereadable("/usr/local/bin/ctags")
+        let g:tagbar_ctags_bin = '/usr/local/bin/ctags'
+    endif
     if filereadable("/usr/bin/cscope")
-        execute "set csprg=/usr/bin/cscope'
+        execute 'set csprg=/usr/bin/cscope'
     elseif filereadable("/usr/local/bin/cscope")
-        execute "set csprg=/usr/local/bin/cscope'
+        execute 'set csprg=/usr/local/bin/cscope'
     endif
 endif
 "}}}
