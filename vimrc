@@ -40,10 +40,7 @@ NeoBundle 'jianshanbushishan/vim-base' "{{{
 
 
 if has("gui_running")
-    " textmate下的配色方案
-    NeoBundle 'tomasr/molokai'
     NeoBundle 'altercation/vim-colors-solarized'
-" 颜色方案的设置需要放到vundle加载后,否则将不会生效
 endif
 
 
@@ -228,6 +225,10 @@ noremap <F3> :Unite file_rec/async -start-insert<CR>
 "}}}
 
 
+"python语法脚本"
+NeoBundle 'hdima/python-syntax'
+let python_highlight_all = 1
+
 
 " qt quick的qml脚本的配置插件,支持语法高亮,indent配置
 NeoBundle 'peterhoeg/vim-qml'
@@ -269,6 +270,7 @@ map <C-F2> :SyntasticReset<CR>
 call neobundle#end()
 filetype plugin indent on
 
+" 颜色方案的设置需要放到vundle加载后,否则将不会生效
 if has("gui_running")
     colorscheme solarized
 else
