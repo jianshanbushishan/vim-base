@@ -100,6 +100,12 @@ map * :<C-\>eDoReplace()<cr>
 map # gd''
 vmap / y/<C-R>"<CR>
 
+map ft :call Search_Word()<CR>:copen<CR>
+function! Search_Word()
+    let w = expand("<cword>") " 在当前光标位置抓词
+    execute "vimgrep " . w . " **"
+endfunction
+
 let s:hexModle = 0
 function! s:ToHexModle()
   if s:hexModle == 1
@@ -116,7 +122,7 @@ map <silent> <leader>h :ToHex<cr>
 
 autocmd BufNewFile,BufRead *SCons* set filetype=python
 autocmd BufNewFile,BufRead *scons* set filetype=python
-autocmd BufReadPost * execute "if s:fixPath == 0 | cd ".substitute(expand("%:p:h"), " ", "\\\\ ", "g")." |else | cd ".s:FixedPath." | endif"
+autocmd BufReadPost * execute "if g:fixPath == 0 | cd ".substitute(expand("%:p:h"), " ", "\\\\ ", "g")." |else | cd ".g:FixedPath." | endif"
 
 " 插入匹配括号
 inoremap ( ()<LEFT>
@@ -167,12 +173,12 @@ endfunction
 
 command! -nargs=0 MakeTags call s:MakeTags()
 
-let s:fixPath = 0
-let s:FixedPath = ""
-function! s:FixPath()
-    if s:fixPath == 0
-        let s:fixPath = 1
-        let s:FixedPath = getcwd()
+let g:fixPath = 0
+let g:FixedPath = ""
+function! g:FixPath()
+    if g:fixPath == 0
+        let g:fixPath = 1
+        let g:FixedPath = getcwd()
         if filewritable("tags")
             set tags=tags
         endif
@@ -181,10 +187,10 @@ function! s:FixPath()
             cs add cscope.out
         endif
     else
-        let s:fixPath = 0
-        let s:FixedPath = ""
+        let g:fixPath = 0
+        let g:FixedPath = ""
     endif
 endfunction
 
-command! -nargs=0 FixPath call s:FixPath()
+command! -nargs=0 FixPath call g:FixPath()
 
