@@ -140,6 +140,17 @@ vmap <SPACE> gcc
 NeoBundle 'terryma/vim-expand-region'
 
 
+NeoBundle 'davidhalter/jedi-vim' " {{{
+ let g:neocomplete#enable_auto_select = 0
+ let g:jedi#popup_select_first=0
+ set completeopt=longest,menuone
+ let g:jedi#auto_vim_configuration = 0
+ let g:jedi#popup_on_dot = 0
+ if !exists('g:neocomplete#force_omni_input_patterns')
+         let g:neocomplete#force_omni_input_patterns = {}
+ endif
+ let g:neocomplete#force_omni_input_patterns.python = '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+" }}}
 
 " 如果不考虑c++的智能补全,常用的补全使用这个插件足够
 " windows下使用YouCompleteMe安装略麻烦
@@ -151,7 +162,7 @@ let g:neocomplete#enable_smart_case = 0
 " 自动选择第一个候选项
 let g:neocomplete#enable_auto_select = 1
 " Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 4
+let g:neocomplete#sources#syntax#min_keyword_length = 3
 let g:neocomplete#enable_fuzzy_completion = 0
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
@@ -169,7 +180,8 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType python setlocal omnifunc=jedi#completions
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
@@ -231,19 +243,19 @@ noremap <F3> :Unite file_rec/async -start-insert<CR>
 
 
 "python语法脚本"
-NeoBundle 'hdima/python-syntax'
-let python_highlight_all = 1
+" NeoBundle 'hdima/python-syntax'
+" let python_highlight_all = 1
 
 
 " qt quick的qml脚本的配置插件,支持语法高亮,indent配置
-NeoBundle 'peterhoeg/vim-qml'
+" NeoBundle 'peterhoeg/vim-qml'
 
 
 
 " 一款支持使用中文拼音首字母搜索的插件
-NeoBundle 'jianshanbushishan/vim-PYSearch' "{{{
-map ? :PYSearch<CR>
-map <A-n> :PYNext<CR>
+" NeoBundle 'jianshanbushishan/vim-PYSearch' "{{{
+" map ? :PYSearch<CR>
+" map <A-n> :PYNext<CR>
 "}}}
 
 
@@ -271,6 +283,14 @@ map <F2> :SyncCheck<CR>
 map <C-F2> :SyntasticReset<CR>
 "}}}
 
+
+"markdown文件语法高亮
+" NeoBundle 'godlygeek/tabular' "下面的插件依赖于这个插件
+" NeoBundle 'plasticboy/vim-markdown' "{{{
+" let g:vim_markdown_folding_disabled=1
+" let g:vim_markdown_math=1
+" let g:vim_markdown_frontmatter=1
+"}}}
 
 call neobundle#end()
 filetype plugin indent on
