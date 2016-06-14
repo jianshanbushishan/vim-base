@@ -1,7 +1,7 @@
 " 这几行是vundle插件需要的配置,所以需要放在最前面
 set nocompatible        "Get out of VI's compatible mode..
 syntax on      	        "open syntax highlight
-set fdm=syntax          "set fold method to syntax
+" set fdm=syntax          "set fold method to syntax
 filetype off
 
 let mapleader = ","
@@ -100,9 +100,9 @@ let g:fencview_autodetect = 0
 NeoBundle 'xolox/vim-misc'
 NeoBundle 'xolox/vim-session' "{{{
 "session settings
-let g:session_autoload='no'
+let g:session_autoload='yes'
 let g:session_autosave='yes'
-let g:session_default_to_last=0
+let g:session_default_to_last=1
 let g:session_command_aliases=1
 let g:session_persist_globals = ['&sessionoptions']
 call add(g:session_persist_globals, 'g:fixPath')
@@ -233,11 +233,11 @@ let g:unite_source_history_yank_enable = 1
 "widows下如果不设置下面项的话，file_rec/async将无法使用, ag安装：
 "windows下http://blog.kowalczyk.info/software/the-silver-searcher-for-windows.html
 "mac下brew install the_silver_searcher, linux下yum install the_silver_searcher
-let g:unite_source_rec_async_command = 'ag --follow --nocolor --nogroup --hidden -g ""'
+let g:unite_source_rec_async_command = ('ag --follow --nocolor --nogroup --hidden -g ""')
 noremap <S-F3> :Unite source -start-insert<CR>
 noremap <C-F3> :Unite buffer -start-insert<CR>
-noremap <A-F3> :Unite bookmark -start-insert<CR>
-noremap <F3> :Unite file_rec/async -start-insert<CR>
+noremap <A-F3> :Unite file -start-insert<CR>
+noremap <F3> :Unite file_rec -start-insert<CR>
 
 "}}}
 
@@ -267,7 +267,7 @@ NeoBundle 'scrooloose/syntastic' "{{{
 " let g:syntastic_enable_signs = 0
 "windows下使用pylint时需要先设置下环境变量PYLINTRC指向使用pylintrc文件
 "pylintrc需要自定义配置下自己需要显示的警告,默认有非常多不需要的报错
-let g:syntastic_python_checkers = ['pylint']
+let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_mode_map = { 'mode': 'passive',
                            \ 'active_filetypes': ['ruby', 'lua'],

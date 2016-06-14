@@ -1,5 +1,5 @@
 syntax on      	        "open syntax highlight
-set fdm=syntax          "set fold method to syntax
+" set fdm=syntax          "set fold method to syntax
 
 if has("gui_running")
     set guioptions-=r
@@ -15,7 +15,7 @@ if has("gui_running")
         behave mswin
         set guifont=Source_Code_Pro_Light:h13:cANSI
         "set fileencoding=chinese
-        "set linespace=-1
+        set linespace=-1
     else
         set fileencoding=utf-8
         set guifont=Sauce\ Code\ Powerline\ Light:h16
@@ -122,7 +122,7 @@ map <silent> <leader>h :ToHex<cr>
 
 autocmd BufNewFile,BufRead *SCons* set filetype=python
 autocmd BufNewFile,BufRead *scons* set filetype=python
-autocmd BufReadPost * execute "if g:fixPath == 0 | cd ".substitute(expand("%:p:h"), " ", "\\\\ ", "g")." |else | cd ".g:FixedPath." | endif"
+" autocmd BufReadPost * execute "if g:fixPath == 0 | cd ".substitute(expand("%:p:h"), " ", "\\\\ ", "g")." |else | cd ".g:FixedPath." | endif"
 
 " 插入匹配括号
 inoremap ( ()<LEFT>
